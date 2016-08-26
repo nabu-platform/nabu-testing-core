@@ -1,0 +1,17 @@
+be.nabu.glue.impl.formatted.FormattedScriptResult [] results ?= null
+be.nabu.glue.impl.formatted.FormattedDashboard dashboard ?= null
+string path ?= system.pwd()
+
+environment = nabu.misc.cluster.Services.getCurrentCluster()/clusterId
+if (environment == null)
+	environment = nabu.utils.Server.getHostName()/host
+
+current = format(date(), "yyyy/MM/dd/HHmmss")
+resultPath = path + "/" + environment + "/" + current
+
+for (result : results)
+	write(resultPath + "/" + result/name + ".xml", xml.stringify(result))
+
+if (dashboard != null)	
+	write(resultPath + "/dashboard.xml", xml.stringify(dashboard))
+	write(path + "/dashboard." + environment + ".xml", xml.stringify(dashboard))

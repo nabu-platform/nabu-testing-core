@@ -1,0 +1,8 @@
+string projectId ?= null
+string path ?= null
+
+result = eval(projectId + "()")
+nabu.testing.core.services.write(
+	result/results,
+	result/summary,
+	path + "/" + projectId)
