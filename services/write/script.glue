@@ -4,9 +4,9 @@ string path ?= system.pwd()
 
 environment = nabu.misc.cluster.Services.getCurrentCluster()/clusterId
 if (environment == null)
-	environment = nabu.utils.Server.getHostName()/host
+	environment = nabu.utils.Server.getServerName()/server
 
-current = format(date(), "yyyy/MM/dd/HHmmss")
+current = format("yyyy/MM/dd/HHmmss", date: date())
 resultPath = path + "/" + environment + "/" + current
 
 for (result : results)
