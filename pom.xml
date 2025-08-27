@@ -14,5 +14,17 @@
 			<groupId>nabu.services</groupId>
 			<artifactId>glue</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>nabu.types</groupId>
+			<artifactId>xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nabu.frameworks</groupId>
+			<artifactId>datastore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nabu</groupId>
+			<artifactId>utils</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,1 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><node artifactManager="be.nabu.eai.module.services.glue.GlueServiceManager" lastModified="2016-08-26T14:16:50.245+02:00" leaf="true" version="1"><environmentId>hyperion</environmentId><properties/><references>nabu.misc.cluster.Services.getCurrentCluster</references><references>nabu.utils.Server.getHostName</references></node>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.glue.GlueServiceManager" created="2025-08-26T13:01:12.766+02:00" lastModified="2025-08-26T13:01:12.766+02:00" leaf="true" version="2">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.Server.getServerName</references>
+</node>
