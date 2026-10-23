@@ -1,0 +1,325 @@
+<sequence id="ba5ce2f9ccd84c9494a478276419eff0">
+	<map id="443481ea95384d73a1bb255562d9257e">
+		<invoke id="706743aa809b46ba8f03e09d7b38528c"
+			resultName="result706743aa809b46ba8f03e09d7b38528c"
+			serviceId="nabu.utils.reflection.Node.listByType"
+			x="139"
+			y="81">
+			<link id="f67cdc9f12c640f0be75ea8d73cc8466"
+				fixedValue="true">
+				<from>be.nabu.eai.module.services.glue.testing.project.GlueTestProjectArtifact</from>
+				<to>type</to>
+			</link>
+		</invoke>
+		<link id="82eed83777064a2d891685d8200831c8">
+			<from>result706743aa809b46ba8f03e09d7b38528c/nodes</from>
+			<to>projects</to>
+		</link>
+		<invoke id="82a6d52340364dbd8b4f60d1314fe183"
+			resultName="result82a6d52340364dbd8b4f60d1314fe183"
+			serviceId="nabu.utils.Server.uuid"
+			x="288"
+			y="344">
+		</invoke>
+		<link id="35054a69076040a79fb48f172fca52df">
+			<from>result82a6d52340364dbd8b4f60d1314fe183/uuid</from>
+			<to>conversationId</to>
+		</link>
+	</map>
+	<map id="3cb48da6bdf74c4d90895f0a200b40db"
+		comment="Filter the projects if we have a list of ids"
+		label="input/testProjectIds != null">
+		<link id="9e2418a7a58049778ce232a34c9af7d6">
+			<from>projects[id # /input/testProjectIds]</from>
+			<to>projects</to>
+		</link>
+	</map>
+	<for id="1c6feb4d82c74bfba419f901cab862be"
+		query="projects"
+		variable="project">
+		<sequence id="670324d609d64c7289c576ead3fb4daf"
+			scopeDefaultTransaction="true">
+			<map id="e1b858cd100a4d7790915687edd41c33"
+				comment="Map complex event">
+				<link id="0dac892fbf99431e85f7e8e783bb82b1">
+					<from>project/id</from>
+					<to>event/artifactId</to>
+				</link>
+				<link id="6ce86c202dd8420da93d5d809eb965cc"
+					fixedValue="true">
+					<from>test</from>
+					<to>event/eventCategory</to>
+				</link>
+				<link id="35c2bbd428a849aeb90304aa20fccc5e"
+					fixedValue="true">
+					<from>test-project-execute</from>
+					<to>event/eventName</to>
+				</link>
+				<link id="7ae90ca84a5242b09ef2312fce576925"
+					fixedValue="true">
+					<from>INFO</from>
+					<to>event/severity</to>
+				</link>
+				<invoke id="24979d3f4bfc4ff781e5e21fc5a9265e"
+					resultName="result24979d3f4bfc4ff781e5e21fc5a9265e"
+					serviceId="nabu.utils.Date.now"
+					x="253"
+					y="269">
+				</invoke>
+				<link id="3167a3df47984b01ae9f91810de546c4">
+					<from>result24979d3f4bfc4ff781e5e21fc5a9265e/date</from>
+					<to>event/started</to>
+				</link>
+				<link id="bde53e0afc974cf79ca9b975162781c0">
+					<from>conversationId</from>
+					<to>event/conversationId</to>
+				</link>
+			</map>
+			<map id="b11d54b1a4e84c4f8ee0f577e43fbd00">
+				<invoke id="fc27ec7638434be095e8e20ab91c8e49"
+					resultName="resultfc27ec7638434be095e8e20ab91c8e49"
+					serviceId="nabu.utils.reflection.Service.invoke"
+					x="155"
+					y="132">
+					<link id="f5459d9c13c24b2ab505df6562d70b63">
+						<from>project/id</from>
+						<to>serviceId</to>
+					</link>
+				</invoke>
+				<invoke id="58fa1b1ed7554252b755454c3daedb00"
+					invocationOrder="1"
+					resultName="result58fa1b1ed7554252b755454c3daedb00"
+					serviceId="nabu.utils.reflection.Type.get"
+					x="402"
+					y="332">
+					<link id="00f270a65d6440759559608f36da33b5">
+						<from>resultfc27ec7638434be095e8e20ab91c8e49/output</from>
+						<to>typeInstance</to>
+					</link>
+					<link id="1dce630313aa4c72a7a40605bb8a6796"
+						fixedValue="true">
+						<from>result</from>
+						<to>path</to>
+					</link>
+				</invoke>
+				<link id="3e338e5cb3bf4b3392ce1ca03d0eb7e0">
+					<from>result58fa1b1ed7554252b755454c3daedb00/value</from>
+					<to>result</to>
+				</link>
+			</map>
+			<map id="892d844f105b486e9fb939d45777d26c"
+				comment="Map event">
+				<invoke id="be5d45b6cf3a4e41b41f999c4a866046"
+					resultName="resultbe5d45b6cf3a4e41b41f999c4a866046"
+					serviceId="nabu.data.json.Services.marshal"
+					x="94"
+					y="105">
+					<link id="d1da2bf7bcf44159ba9c165d6cca8b71">
+						<from>result/summary</from>
+						<to>data</to>
+					</link>
+					<link id="8c4334be2d914d9387b4febee73c60e8"
+						fixedValue="true">
+						<from>true</from>
+						<to>prettyPrint</to>
+					</link>
+				</invoke>
+				<link id="520e2ab93dca44f28cee08e0836c3a56">
+					<from>resultbe5d45b6cf3a4e41b41f999c4a866046/marshalled</from>
+					<to>event/data</to>
+				</link>
+			</map>
+			<for id="64e295f9d8264cb2a75b044e3035856b"
+				query="result/results"
+				variable="testCaseResult">
+				<map id="2eff1ab818f14a5998d5892e78eab5cd"
+					comment="Force cast from incompatible enum and map data">
+					<link id="2856b002318441c18f54fe64907fc458">
+						<from>testCaseResult/severity</from>
+						<to>severity</to>
+					</link>
+					<link id="71f7745339fd4da1aab58de5f77c0be4">
+						<from>testCaseResult/validations</from>
+						<to>testCaseData/validations</to>
+					</link>
+					<link id="128319b5e7c147ccb6d1f2dc562ed019">
+						<from>testCaseResult/amountValidations</from>
+						<to>testCaseData/amountValidations</to>
+					</link>
+					<link id="ea4dce9d42de4df6968bcff95d6dd8ae">
+						<from>testCaseResult/amountSuccessful</from>
+						<to>testCaseData/amountSuccessful</to>
+					</link>
+					<link id="aeb72823e8304ccf90dfcf463d113c7e">
+						<from>testCaseResult/amountError</from>
+						<to>testCaseData/amountError</to>
+					</link>
+					<link id="00e2d6da81fd47399073fa63da5cf79d">
+						<from>testCaseResult/amountCritical</from>
+						<to>testCaseData/amountCritical</to>
+					</link>
+				</map>
+				<map id="1bddcc1de9784db1bdd908fd49bfbc18"
+					comment="Map testcase event">
+					<link id="1b9cbe9e3f554f3882b3064c7ea96979">
+						<from>severity</from>
+						<to>testCaseEvent/severity</to>
+					</link>
+					<link id="a3d22dc3e3494354a3793389910c2574">
+						<from>testCaseResult/started</from>
+						<to>testCaseEvent/started</to>
+					</link>
+					<link id="a5969bbf3cec493d9baf5c6f68c0c9a2">
+						<from>testCaseResult/stopped</from>
+						<to>testCaseEvent/stopped</to>
+					</link>
+					<link id="e7e9812a24d64e409c16b869a1917d0c">
+						<from>testCaseResult/log</from>
+						<to>testCaseEvent/message</to>
+					</link>
+					<link id="021749de4d184b958abfb00396b7c031">
+						<from>project/id</from>
+						<to>testCaseEvent/context</to>
+					</link>
+					<invoke id="e430a8b2e6e64e83808efbe6bfb33715"
+						resultName="resulte430a8b2e6e64e83808efbe6bfb33715"
+						serviceId="nabu.utils.String.join"
+						x="349"
+						y="122">
+						<link id="8c79d820bba741e8a6eda17290d4272e">
+							<from>testCaseResult/namespace</from>
+							<to>parts[0]</to>
+						</link>
+						<link id="3c9b41bdbec44dffb356afa5cb58148b">
+							<from>testCaseResult/name</from>
+							<to>parts[1]</to>
+						</link>
+						<link id="d2a8d26d79664a2db44dde51b7cc9a2d"
+							fixedValue="true">
+							<from>.</from>
+							<to>separator</to>
+						</link>
+					</invoke>
+					<link id="e24d7d3060884dad866747b82670c5bb">
+						<from>resulte430a8b2e6e64e83808efbe6bfb33715/string</from>
+						<to>testCaseEvent/artifactId</to>
+					</link>
+					<link id="61eb4968753444de9e2a1e607e0c33a6">
+						<from>testCaseResult/exception</from>
+						<to>testCaseEvent/stacktrace</to>
+					</link>
+					<invoke id="6b114506ca2b40edae2cb2b50e9d682e"
+						resultName="result6b114506ca2b40edae2cb2b50e9d682e"
+						serviceId="nabu.data.json.Services.marshal"
+						x="331"
+						y="387">
+						<link id="587277ce59f245beb8d47d7569521458">
+							<from>testCaseData</from>
+							<to>data</to>
+						</link>
+						<link id="813d46f2d2444ff8bfcb161d5187bbc3"
+							fixedValue="true">
+							<from>true</from>
+							<to>prettyPrint</to>
+						</link>
+					</invoke>
+					<link id="c0373e9e62f541ab8f28cc6f943be02a">
+						<from>result6b114506ca2b40edae2cb2b50e9d682e/marshalled</from>
+						<to>testCaseEvent/data</to>
+					</link>
+					<link id="1323e03309c14ae2b712262a07381d57"
+						fixedValue="true">
+						<from>test</from>
+						<to>testCaseEvent/eventCategory</to>
+					</link>
+					<link id="033183790e9b4959949440fcec17d59c"
+						fixedValue="true">
+						<from>test-case-execute</from>
+						<to>testCaseEvent/eventName</to>
+					</link>
+					<link id="8175291fe8cd4f509d4a85c6806546d5">
+						<from>conversationId</from>
+						<to>testCaseEvent/conversationId</to>
+					</link>
+					<drop id="d2c18289420e4b8cadf9b1a65d233521"
+						path="testCaseData"/>
+					<drop id="ab7173e88a5a42418f141496c4acb450"
+						path="severity"/>
+				</map>
+				<map id="4d59985c7a2345f8b2d18520619ea05c"
+					comment="Fire event">
+					<invoke id="7bfe1c603f834deeb93b387d3651140c"
+						resultName="result7bfe1c603f834deeb93b387d3651140c"
+						serviceId="nabu.utils.Event.fire"
+						x="153"
+						y="165">
+						<link id="7d2a7524bc2c44bea1ca13a9e1b7f074">
+							<from>testCaseEvent</from>
+							<to>event</to>
+						</link>
+					</invoke>
+					<drop id="6ea7d75fec734f4eb760d9117c9877f2"
+						path="testCaseEvent"/>
+				</map>
+			</for>
+			<catch id="e680179d41214305aa89c579ec2cbc55"
+				variable="exception">
+				<map id="4eeeaac4a2be4c0599a6582faa74b05d">
+					<invoke id="e5be64d10b3e4e6291efa6e395a46698"
+						resultName="resulte5be64d10b3e4e6291efa6e395a46698"
+						serviceId="nabu.utils.Runtime.summarizeException"
+						x="194"
+						y="75">
+						<link id="498ebd54f8cd49d9bdd5ed5feeced0ba">
+							<from>exception</from>
+							<to>exception</to>
+						</link>
+					</invoke>
+					<link id="95be9daad21141d28a33397bf8a486ad"
+						fixedValue="true">
+						<from>ERROR</from>
+						<to>event/severity</to>
+					</link>
+					<link id="3ef6401ee5274616ba5ede50fb9eb47f">
+						<from>resulte5be64d10b3e4e6291efa6e395a46698/summary/exceptionStack</from>
+						<to>event/stacktrace</to>
+					</link>
+					<link id="026f95ef80814bb1a55205c4bd8b9547">
+						<from>resulte5be64d10b3e4e6291efa6e395a46698/summary/code</from>
+						<to>event/code</to>
+					</link>
+				</map>
+			</catch>
+			<finally id="6fb2371d0e86428390b03c390af8f582">
+				<map id="8203478ed8244d8ab90f0b38e68c5dbd"
+					comment="Map event">
+					<invoke id="794c719c43b244f5958941ed904d164d"
+						resultName="result794c719c43b244f5958941ed904d164d"
+						serviceId="nabu.utils.Date.now"
+						x="268"
+						y="211">
+					</invoke>
+					<link id="32807f3bc35b4f049de25083b4eb7173">
+						<from>result794c719c43b244f5958941ed904d164d/date</from>
+						<to>event/stopped</to>
+					</link>
+				</map>
+				<map id="2afc1f22f35343c9931d3792b2e29b90"
+					comment="Fire event">
+					<invoke id="5ee8283bd5634dda9a3a21f78a3a1185"
+						resultName="result7bfe1c603f834deeb93b387d3651140c"
+						serviceId="nabu.utils.Event.fire"
+						x="153"
+						y="165">
+						<link id="e3c9088d768b4cc1824fae1945083128">
+							<from>event</from>
+							<to>event</to>
+						</link>
+					</invoke>
+					<drop id="1320dfa1d5114fcdaf20a7cf410a62b0"
+						path="event"/>
+				</map>
+			</finally>
+		</sequence>
+	</for>
+</sequence>

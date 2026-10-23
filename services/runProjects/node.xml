@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<node artifactManager="be.nabu.eai.module.services.vm.VMServiceManager" created="2026-10-22T09:04:50.982+02:00" lastModified="2026-10-22T09:31:16.790+02:00" leaf="true" version="16">
+    <environmentId>ares</environmentId>
+    <hidden>false</hidden>
+    <locked>false</locked>
+    <properties/>
+    <references>nabu.utils.Runtime.summarizeException</references>
+    <references>nabu.utils.reflection.Service.invoke</references>
+    <references>nabu.utils.Server.uuid</references>
+    <references>nabu.utils.Date.now</references>
+    <references>java.util.UUID</references>
+    <references>be.nabu.glue.impl.formatted.FormattedValidation</references>
+    <references>java.lang.Integer</references>
+    <references>nabu.utils.String.join</references>
+    <references>be.nabu.eai.module.services.glue.testing.project.GlueTestProjectArtifact$GlueTestProjectOutput</references>
+    <references>nabu.utils.reflection.Node.listByType</references>
+    <references>nabu.utils.Event.fire</references>
+    <references>java.lang.String</references>
+    <references>nabu.data.json.Services.marshal</references>
+    <references>nabu.utils.types.NodeDescription</references>
+    <references>be.nabu.utils.cep.impl.ComplexEventImpl</references>
+    <references>nabu.utils.reflection.Type.get</references>
+</node>

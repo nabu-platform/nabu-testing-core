@@ -1,0 +1,19 @@
+<structure name="pipeline">
+	<structure name="input">
+		<field maxOccurs="unbounded" minOccurs="0" name="testProjectIds" type="java.lang.String"/>
+	</structure>
+	<structure name="output"/>
+	<structure definition="nabu.utils.types.NodeDescription" maxOccurs="unbounded" minOccurs="0" name="projects"/>
+	<structure definition="be.nabu.eai.module.services.glue.testing.project.GlueTestProjectArtifact$GlueTestProjectOutput" name="result"/>
+	<structure definition="be.nabu.utils.cep.impl.ComplexEventImpl" name="event"/>
+	<structure definition="be.nabu.utils.cep.impl.ComplexEventImpl" name="testCaseEvent"/>
+	<field name="severity" type="java.lang.String"/>
+	<structure name="testCaseData">
+		<structure definition="be.nabu.glue.impl.formatted.FormattedValidation" maxOccurs="unbounded" minOccurs="0" name="validations"/>
+		<field name="amountValidations" nillable="false" type="java.lang.Integer"/>
+		<field name="amountSuccessful" nillable="false" type="java.lang.Integer"/>
+		<field name="amountError" nillable="false" type="java.lang.Integer"/>
+		<field name="amountCritical" nillable="false" type="java.lang.Integer"/>
+	</structure>
+	<field minOccurs="0" name="conversationId" type="java.util.UUID"/>
+</structure>
